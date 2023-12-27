@@ -20,8 +20,6 @@ import NormalChat from "./components/NormalChat";
 import Tasks from "./components/Tasks";
 import Task from "./components/Task";
 
-
-
 function App() {
   const location = useLocation();
   const { data } = useFetchModelQuery();
@@ -30,21 +28,25 @@ function App() {
     if (data?.language) {
       i18n.changeLanguage(data?.language.toLowerCase());
     }
-  }, [data?.language,i18n]);
+  }, [data?.language, i18n]);
   return (
     <Routes location={location} key={location.pathname}>
       <Route path="/" element={<Layout />}>
         {/* public routes */}
-        <Route element={<RequireAuth />} >
+        <Route element={<RequireAuth />}>
           {/* <Route index element={<Welcome />} /> */}
-          <Route path="/" element={<Chatbot />} >
+          <Route path="/" element={<Chatbot />}>
             <Route path="/chat-files" element={<ChatFiles />} />
             {/* project routes */}
             <Route exact path="/chatbot" element={<NormalChat />} />
             <Route path="/chatbot/:projectId" element={<Chat />} />
             <Route path="/projects" element={<Projects />} />
             <Route exact path="/projects/:projectId" element={<Project />} />
-            <Route exact path="/projects/:projectId/edit" element={<ProjectEdit />} />
+            <Route
+              exact
+              path="/projects/:projectId/edit"
+              element={<ProjectEdit />}
+            />
             <Route path="/projects/create" element={<ProjectCreate />} />
             {/* end project routes */}
             {/* library routes */}
@@ -55,7 +57,6 @@ function App() {
             <Route path="/tasks" element={<Tasks />} />
             <Route path="/task/:taskId" element={<Task />} />
             <Route path="/statistics" element={<Statistics />} />
-
           </Route>
         </Route>
       </Route>
