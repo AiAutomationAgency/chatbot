@@ -1,186 +1,185 @@
 .main-navbar-navbar-updated {
-    position  : fixed;
-    top       : 0;
-    left      : 0;
-    width     : 100vw;
-    height    : 120px;
-    z-index   : 10;
-    background: var(--bg-black-900);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 120px;
+  z-index: 10;
+  background: var(--bg-black-900);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .navbar-navbar-updated {
-    display        : flex;
-    align-items    : center;
-    justify-content: space-between;
-    padding        : 20px;
-    background     : white;
-    height         : 80px;
-    width          : 90vw;
-    border-radius  : 15px;
-    position       : relative;
-    box-shadow     : 0px 1px 5px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  background: white;
+  height: 80px;
+  width: 90vw;
+  border-radius: 15px;
+  position: relative;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
 }
 
 .search-icon-navbar-updated {
-    color : var(--primary-dark-color);
-    cursor: pointer;
+  color: var(--primary-dark-color);
+  cursor: pointer;
 }
 
-
-
 .logo-navbar-updated img {
-    height: 40px;
-
-
+  height: 40px;
 }
 
 .logo-navbar-updated img.mob-navbar-updated {
-    display: none;
+  display: none;
 }
 
 .right-navbar-updated {
-    display        : flex;
-    align-items    : center;
-    justify-content: flex-end;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
-
 
 .icons-navbar-updated,
 .profile-navbar-updated {
-    display        : flex;
-    align-items    : center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .icons-navbar-updated .first {
-    margin-right: 15px;
-    color       : var(--primary-dark-color);
+  margin-right: 15px;
+  color: var(--primary-dark-color);
 }
 
 .profile-icons-navbar-updated {
-    display        : flex;
-    align-items    : center;
-    justify-content: center;
-    text-decoration: none;
-    color          : black;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: black;
 }
 
 .profile-icons-navbar-updated img {
-    margin       : 0 15px;
-    height       : 50px;
-    width        : 50px;
-    border-radius: 50%;
-    background   : #000;
+  margin: 0 15px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background: #000;
 }
 
 .burger-menu-navbar-updated {
-    position        : fixed;
-    top             : 0;
-    left            : 0;
-    height          : 100vh;
-    width           : 100vw;
-    display         : flex;
-    flex-direction  : column;
-    align-items     : center;
-    background-color: #8e70ff;
-    background-image: linear-gradient(43deg, #80e3ff 0%, #ae50c8 46%, #8e70ff 100%);
-    background-size : 600% 600%;
-    justify-content: center;
-    z-index: 99;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #8e70ff;
+  background-image: linear-gradient(
+    43deg,
+    #80e3ff 0%,
+    #ae50c8 46%,
+    #8e70ff 100%
+  );
+  background-size: 600% 600%;
+  justify-content: center;
+  z-index: 99;
 }
 
 .burger-menu-navbar-updated.close {
-    top: -140vh;
+  top: -140vh;
 }
 
 .burger-menu-nav-ul {
-    padding        : 0 30px;
-    display        : flex;
-    flex-direction : column;
-    justify-content: flex-start;
-    gap            : 40px;
+  padding: 0 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 40px;
 }
 
 .item-navbar-updated li {
-    width      : 100%;
-    font-size  : 25px;
-    display    : flex;
-    align-items: center;
-    gap        : 10px;
-    color      : white;
-    cursor     : pointer;
-    transition : all .3s ease-in-out;
+  width: 100%;
+  font-size: 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 
 .item-navbar-updated li:hover .text-navbar-updated {
-    color: var(--primary-dark-color);
+  color: var(--primary-dark-color);
 }
 
 .text-navbar-updated {
-    font-size  : 25px;
-    font-family: var(--blogger-font);
-    color      : white;
+  font-size: 25px;
+  font-family: var(--blogger-font);
+  color: white;
 }
 
 .ic-navbar-updated {
-    height: 35px;
-    color : white;
+  height: 35px;
+  color: white;
 }
 
 .search-navbar-updated {
-    padding        : 0 8px;
-    display        : flex;
-    align-items    : center;
-    justify-content: space-between;
-    width          : 30%;
-    height         : 40px;
-    border-radius  : 12px;
-    background     : grey;
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 30%;
+  height: 40px;
+  border-radius: 12px;
+  background: grey;
 }
 
 .search-bar-navbar-updated {
-    height    : 100%;
-    border    : none;
-    outline   : none;
-    width     : 100%;
-    background: transparent;
+  height: 100%;
+  border: none;
+  outline: none;
+  width: 100%;
+  background: transparent;
 }
 
 .search-icon-navbar-updated {
-    color : var(--primary-dark-color);
-    cursor: pointer;
+  color: var(--primary-dark-color);
+  cursor: pointer;
 }
 
 .progress-bar {
-    position     : absolute;
-    bottom       : -5px;
-    left         : 10px;
-    height       : 5px;
-    background   : var(--primary-dark-color);
-    width        : 50%;
-    border-radius: 3px;
-    transition   : all .3s ease;
+  position: absolute;
+  bottom: -5px;
+  left: 10px;
+  height: 5px;
+  background: var(--primary-dark-color);
+  width: 50%;
+  border-radius: 3px;
+  transition: all 0.3s ease;
 }
 
-@media(max-width:1000px) {
-    .logo-navbar-updated img.web-navbar-updated {
-        display: none;
-    }
+@media (max-width: 1000px) {
+  .logo-navbar-updated img.web-navbar-updated {
+    display: none;
+  }
 
-    .logo-navbar-updated img.mob-navbar-updated {
-        display: block;
-    }
+  .logo-navbar-updated img.mob-navbar-updated {
+    display: block;
+  }
 
-    .icons-navbar-updated,
-    .profile-icons-navbar-updated {
-        display: none;
-    }
+  .icons-navbar-updated,
+  .profile-icons-navbar-updated {
+    display: none;
+  }
 
-    .search-navbar-updated {
-        display: none;
-    }
+  .search-navbar-updated {
+    display: none;
+  }
 }

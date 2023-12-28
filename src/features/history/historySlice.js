@@ -1,17 +1,17 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const historySlice = createSlice({
-    name:'history',
-    initialState : {conversations:[]},
-    reducers: {
-        setHistory : (state,action) => {
-            state.conversations = action.payload
-        }
-    }
-})
+  name: "history",
+  initialState: { conversations: [] },
+  reducers: {
+    setHistory: (state, action) => {
+      state.conversations = action.payload;
+    },
+  },
+});
 
-export const {setHistory} = historySlice.actions;
+export const { setHistory } = historySlice.actions;
 
 export default historySlice.reducer;
 
-export const selectCurrentHistory = (state) => state.history.conversations
+export const selectCurrentHistory = (state) => state.history.conversations;

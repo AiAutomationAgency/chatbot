@@ -1,6 +1,5 @@
-@media screen and (max-width:960px) {
-    
-    .lc-right{
-        width: 50%;
-    }
+@media screen and (max-width: 960px) {
+  .lc-right {
+    width: 50%;
+  }
 }

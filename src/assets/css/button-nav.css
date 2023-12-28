@@ -1,39 +1,36 @@
 .MuiButtonBase-root.button-nav-btn {
-    border-color: #3464c4;
-    color       : #3464c4;
-    min-width   : 0;
-    box-shadow  : var(--box-shadow);
-    transition: width .5s ease;
+  border-color: #3464c4;
+  color: #3464c4;
+  min-width: 0;
+  box-shadow: var(--box-shadow);
+  transition: width 0.5s ease;
 }
-.button-nav-btn-text{
-    width: 0;
-    max-height: 26px;
-    overflow: hidden;
-    transition: width .4s ease;
-    text-transform: capitalize;
+.button-nav-btn-text {
+  width: 0;
+  max-height: 26px;
+  overflow: hidden;
+  transition: width 0.4s ease;
+  text-transform: capitalize;
 }
-.MuiButtonBase-root.button-nav-btn:hover{
-    width: 168px;
+.MuiButtonBase-root.button-nav-btn:hover {
+  width: 168px;
 }
-.MuiButtonBase-root.button-nav-btn:hover .button-nav-btn-text{
-    width: 120px;
-    
+.MuiButtonBase-root.button-nav-btn:hover .button-nav-btn-text {
+  width: 120px;
 }
-@media screen and (max-width:1280px) {
-    .MuiButtonBase-root.button-nav-btn:hover{
-        max-width: 120px;
-
-    }
-    .MuiButtonBase-root.button-nav-btn{
-        padding: 5px;
-    }
+@media screen and (max-width: 1280px) {
+  .MuiButtonBase-root.button-nav-btn:hover {
+    max-width: 120px;
+  }
+  .MuiButtonBase-root.button-nav-btn {
+    padding: 5px;
+  }
 }
-@media screen and (max-width:480px) {
-    .MuiButtonBase-root.button-nav-btn:hover{
-        max-width: 80px;
-
-    }
-    .MuiButtonBase-root.button-nav-btn{
-        padding: 5px;
-    }
+@media screen and (max-width: 480px) {
+  .MuiButtonBase-root.button-nav-btn:hover {
+    max-width: 80px;
+  }
+  .MuiButtonBase-root.button-nav-btn {
+    padding: 5px;
+  }
 }

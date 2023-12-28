@@ -1,238 +1,237 @@
 .settings-container {
-    height  : 100%;
-    width   : 100%;
-    display : flex;
-    position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  position: relative;
 }
 
 .settings-left {
-    flex          : 1;
-    height        : 100%;
-    display       : flex;
-    flex-direction: column;
-    max-width     : calc(100vw - 100px);
-    min-width     : calc(80vw - 60px);
-    position      : relative;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  max-width: calc(100vw - 100px);
+  min-width: calc(80vw - 60px);
+  position: relative;
 }
 
 .settings-header {
-    height         : 60px;
-    width          : 100%;
-    padding        : 20px;
-    display        : flex;
-    align-items    : center;
-    justify-content: space-between;
-    background     : #ffffff;
-    border-radius  : 20px 20px 0 0;
-    border-bottom  : 1px solid #d0d0d0;
+  height: 60px;
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border-radius: 20px 20px 0 0;
+  border-bottom: 1px solid #d0d0d0;
 }
 
 .settings-header-left {
-    color      : #202123;
-    font-size  : 20px;
-    font-weight: bolder;
+  color: #202123;
+  font-size: 20px;
+  font-weight: bolder;
 }
 
 .settings-header-left span:hover {
-    color: #3464c4;
+  color: #3464c4;
 }
 
 .settings-left-body {
-    padding        : 20px;
-    width          : 60%;
-    height         : 100%;
-    display        : flex;
-    flex-direction : column;
-    gap            : 50px;
-    justify-content: center;
+  padding: 20px;
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  justify-content: center;
 }
 
 .settings-left-body-row {
-    display        : flex;
-    align-items    : center;
-    justify-content: flex-start;
-    width          : 100%;
-    height         : 80px;
-    cursor         : pointer;
-    gap            : 25px;
-    background     : white;
-    border-radius  : 12px;
-    padding        : 10px 20px;
-    border         : 1px solid #d0d0d0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 80px;
+  cursor: pointer;
+  gap: 25px;
+  background: white;
+  border-radius: 12px;
+  padding: 10px 20px;
+  border: 1px solid #d0d0d0;
 }
 
 .settings-left-body-row.active {
-    border            : 2px solid #3464c4;
-    -webkit-box-shadow: 0px 0px 9px 0px rgba(52, 100, 196, 1);
-    -moz-box-shadow   : 0px 0px 9px 0px rgba(52, 100, 196, 1);
-    box-shadow        : 0px 0px 9px 0px rgba(52, 100, 196, 1);
+  border: 2px solid #3464c4;
+  -webkit-box-shadow: 0px 0px 9px 0px rgba(52, 100, 196, 1);
+  -moz-box-shadow: 0px 0px 9px 0px rgba(52, 100, 196, 1);
+  box-shadow: 0px 0px 9px 0px rgba(52, 100, 196, 1);
 }
-.settings-left-body-row.active p,.settings-left-body-row.active .settings-left-body-row-icon.MuiSvgIcon-root{
-    color: #3464c4;
+.settings-left-body-row.active p,
+.settings-left-body-row.active .settings-left-body-row-icon.MuiSvgIcon-root {
+  color: #3464c4;
 }
 
 .settings-left-body-row p {
-    font-size: 24px;
-    color    : #202123;
+  font-size: 24px;
+  color: #202123;
 }
 
 .settings-left-body-row-icon.MuiSvgIcon-root {
-    color : #202123;
-    height: 40px;
-    width : 40px;
+  color: #202123;
+  height: 40px;
+  width: 40px;
 }
 
 .settings-left-body-row:hover p,
 .settings-left-body-row:hover .settings-left-body-row-icon.MuiSvgIcon-root {
-    color: #3464c4;
+  color: #3464c4;
 }
 
 .settings-right {
-    width         : 40%;
-    height        : 100%;
-    /* border     : 1px solid blue; */
-    background    : white;
-    border-radius : 0 20px 20px 0;
-    display       : flex;
-    flex-direction: column;
-    border-left   : 1px solid #d9d9d9;
-    transition    : all .3s ease;
-    position      : absolute;
-    right         : 0;
-    top           : 0;
-    bottom        : 0;
-overflow-y:scroll ;
+  width: 40%;
+  height: 100%;
+  /* border     : 1px solid blue; */
+  background: white;
+  border-radius: 0 20px 20px 0;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #d9d9d9;
+  transition: all 0.3s ease;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow-y: scroll;
 }
 
 .settings-right-header {
-    height         : 60px;
-    width          : 100%;
-    padding        : 20px;
-    display        : flex;
-    align-items    : center;
-    justify-content: space-between;
-    background     : #ffffff;
-    border-radius  : 0 20px 0 0;
-    border-bottom  : 1px solid #d0d0d0;
+  height: 60px;
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border-radius: 0 20px 0 0;
+  border-bottom: 1px solid #d0d0d0;
 }
 
 .settings-right-header-title {
-    display        : flex;
-    align-items    : center;
-    justify-content: flex-start;
-    gap            : 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
 }
 
 .settings-right-header-title-icon.MuiSvgIcon-root {
-    font-size: 2.2rem;
+  font-size: 2.2rem;
 }
 
 .settings-right-body {
-    overflow-y: scroll;
-    padding       : 40px  20px;
-    width         : 100%;
-    display       : flex;
-    flex-direction: column;
-    gap           : 15px;
+  overflow-y: scroll;
+  padding: 40px 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .input-label-settings-right-body-row {
-    font-size: 18px;
-    color    : #6E6E6E;
-    margin   : 0;
+  font-size: 18px;
+  color: #6e6e6e;
+  margin: 0;
 }
 .input-label-settings-right-body-row-desc {
-    font-size: 14px;
-    color    : #6E6E6E;
-    margin   : 0;
-    opacity: .8;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+  font-size: 14px;
+  color: #6e6e6e;
+  margin: 0;
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .settings-right-body-row {
-    width          : 100%;
-    display        : flex;
-    align-items    : center;
-    justify-content: space-between;
-    gap            : 25px;
-    position       : relative;
-    transition: height .3s ease-in-out;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  position: relative;
+  transition: height 0.3s ease-in-out;
 }
 .settings-right-body-row.closed {
-    min-height: 0px;
-    height: 0px;
+  min-height: 0px;
+  height: 0px;
 }
-.settings-right-body-row.closed .settings-right-body-row-item-textField.MuiTextField-root{
-    display: none;
+.settings-right-body-row.closed
+  .settings-right-body-row-item-textField.MuiTextField-root {
+  display: none;
 }
-.settings-right-body-row-item-textField.MuiTextField-root{
-    flex     : 1;
-    max-width: 100%;
-    width    : 100%;
-
+.settings-right-body-row-item-textField.MuiTextField-root {
+  flex: 1;
+  max-width: 100%;
+  width: 100%;
 }
 
 .abs-items-settings-right-body-row {
-    position       : absolute;
-    bottom         : -20px;
-    left           : 0;
-    right          : 0;
-    width          : 100%;
-    display        : flex;
-    align-items    : center;
-    justify-content: space-between;
-    font-size      : 14px;
-    color          : #6E6E6E;
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #6e6e6e;
 }
 
 .MuiButtonBase-root.input-settings-right-body-row {
-    background: #3464c4;
-    color     : white;
-    min-height: 55px;
-    min-width : 120px;
+  background: #3464c4;
+  color: white;
+  min-height: 55px;
+  min-width: 120px;
 }
 .MuiButtonBase-root.input-settings-right-body-row.closed {
-    display: none;
+  display: none;
 }
 
 .MuiButtonBase-root.input-settings-right-body-row.item {
-    flex     : .5 1 auto;
-    max-width: 50%;
-    width    : 50%;
+  flex: 0.5 1 auto;
+  max-width: 50%;
+  width: 50%;
 }
 
 .settings-right-body-row-item.MuiTextField-root {
-    flex     : 0.5 1 auto;
-    max-width: 50%;
-    width    : 50%;
-
+  flex: 0.5 1 auto;
+  max-width: 50%;
+  width: 50%;
 }
 
 .settings-right-body-row-item.MuiTextField-root.full {
-    flex     : 1;
-    max-width: 100%;
-    width    : 100%;
-    transition: visibility .3s ease-in-out;
+  flex: 1;
+  max-width: 100%;
+  width: 100%;
+  transition: visibility 0.3s ease-in-out;
 }
 
-.settings-right-body-row-half
-{
-    flex: .5 1 auto;
-    max-width: 50%;
-    width: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 25px;
+.settings-right-body-row-half {
+  flex: 0.5 1 auto;
+  max-width: 50%;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 25px;
 }
-.settings-right-body-row-half img{
-    height: 150px;
-    width: 150px;
-    border-radius: 50%;
-    background: #d0d0d0;
-    object-fit: cover;
-    border: 1px solid #6E6E6E;
+.settings-right-body-row-half img {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  background: #d0d0d0;
+  object-fit: cover;
+  border: 1px solid #6e6e6e;
 }

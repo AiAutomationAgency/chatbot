@@ -1,46 +1,43 @@
-.cc-rh-file-item{
-    border-radius: 8px;
-    padding: 5px;
-    background: transparent;
-    transition: all .3s ease;
-    display: flex;
-    align-items: flex-start;
-    gap: 5px;
+.cc-rh-file-item {
+  border-radius: 8px;
+  padding: 5px;
+  background: transparent;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
 }
-.cc-rh-file-item.active{
-    box-shadow: var(--box-shadow);
-    background: white;
-
+.cc-rh-file-item.active {
+  box-shadow: var(--box-shadow);
+  background: white;
 }
-.cc-rh-file-item:hover{
-    cursor: pointer;
-    box-shadow: var(--box-shadow);
-    
+.cc-rh-file-item:hover {
+  cursor: pointer;
+  box-shadow: var(--box-shadow);
 }
-.cc-rh-fi-content{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.cc-rh-fi-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-.cc-rh-fi-title{
-    font-size: 16px;
-    color: #202123;
-    font-weight: bold;
-    word-break: break-all;
-
+.cc-rh-fi-title {
+  font-size: 16px;
+  color: #202123;
+  font-weight: bold;
+  word-break: break-all;
 }
 
-.cc-rh-fi-desc{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 14px;
-    color:#3d3d3d;
-    font-weight: lighter;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.cc-rh-fi-desc {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #3d3d3d;
+  font-weight: lighter;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.cc-rh-fi-checkbox.MuiCheckbox-root.Mui-checked{
-    color: #3464c4;
+.cc-rh-fi-checkbox.MuiCheckbox-root.Mui-checked {
+  color: #3464c4;
 }

@@ -1,68 +1,66 @@
 .statistics-container {
-    height  : 100%;
-    width   : 100%;
-    display : flex;
-    position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  position: relative;
 }
 
 .statistics-left {
-    flex          : 1;
-    height        : 100%;
-    display       : flex;
-    flex-direction: column;
-    max-width     : calc(100vw - 100px);
-    min-width     : calc(80vw - 60px);
-    position      : relative;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  max-width: calc(100vw - 100px);
+  min-width: calc(80vw - 60px);
+  position: relative;
 }
 
-
-
 .statistics-header {
-    height         : 60px;
-    width          : 100%;
-    padding        : 20px;
-    display        : flex;
-    align-items    : center;
-    justify-content: space-between;
-    background     : #ffffff;
-    border-radius  : 20px 20px 0 0;
-    border-bottom  : 1px solid #d0d0d0;
+  height: 60px;
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  border-radius: 20px 20px 0 0;
+  border-bottom: 1px solid #d0d0d0;
 }
 
 .statistics-header-left {
-    color      : #202123;
-    font-size  : 20px;
-    font-weight: bolder;
+  color: #202123;
+  font-size: 20px;
+  font-weight: bolder;
 }
 .statistics-header-right {
-    display    : flex;
-    align-items: center;
-    gap        : 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 .statistics-header-left span:hover {
-    color: #3464c4;
+  color: #3464c4;
 }
 
 .statistics-left-body {
-    padding        : 20px;
-    width          : 100%;
-    height         : 100%;
-    display        : flex;
-    flex-direction : column;
-    gap            : 50px;
-    overflow-y: scroll;
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  overflow-y: scroll;
 }
-.statistics-left-body-row{
-    display: flex;
-    align-items: center;
-    gap: 50px;
-    width: 100%;
-    flex-wrap: wrap;
+.statistics-left-body-row {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+  flex-wrap: wrap;
 }
-.statistics-left-body-row-item{
-    min-height: 300px;
-    min-width: 300px;
-    width: calc(30% );
-    flex: .5 1 auto;
-    max-width: 50%;
+.statistics-left-body-row-item {
+  min-height: 300px;
+  min-width: 300px;
+  width: calc(30%);
+  flex: 0.5 1 auto;
+  max-width: 50%;
 }

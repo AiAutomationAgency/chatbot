@@ -16,7 +16,6 @@ import i6 from "../../assets/icons/setting.png";
 import { Link } from "react-router-dom";
 import HelpIcon from "@mui/icons-material/Help";
 
-
 const Navbar = ({ progress, isQuize }) => {
   const matches = useMediaQuery("(max-width:1000px)");
   const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +43,6 @@ const Navbar = ({ progress, isQuize }) => {
   return (
     <div className="main-navbar-navbar-updated">
       <div className="navbar-navbar-updated">
-        
         <Link to={"/home"}>
           <div className="logo-navbar-updated">
             <img src={logoFull} alt="" className="web-navbar-updated" />
@@ -52,12 +50,13 @@ const Navbar = ({ progress, isQuize }) => {
           </div>
         </Link>
 
-        {!isQuize && (Bourichi
+        {!isQuize && (
           <div className="search-navbar-updated">
             <input type="text" className="search-bar-navbar-updated" />
             <SearchIcon className="search-icon-navbar-updated" />
           </div>
         )}
+
         {!matches ? (
           <div className="right-navbar-updated">
             <div className="icons-navbar-updated">
