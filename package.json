@@ -38,6 +38,8 @@
   },
   "scripts": {
     "start": "vite",
+    "format": "npx prettier . --write",
+    "check": "npx prettier . --check",
     "preview": "vite preview",
     "build": "vite build",
     "test": "react-scripts test",
@@ -62,6 +64,7 @@
     ]
   },
   "devDependencies": {
-    "@vitejs/plugin-react-swc": "^3.5.0"
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "prettier": "^3.1.1"
   }
 }
