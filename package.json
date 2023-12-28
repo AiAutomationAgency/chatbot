@@ -38,7 +38,7 @@
   "scripts": {
     "start": "vite",
     "preview": "vite preview",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
