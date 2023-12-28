@@ -24,6 +24,8 @@ export const store = configureStore({
         settings:settingsReducer,
         tasks:taskReducer
     },
+
+    
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware({serializableCheck: false}).concat(apiSlice.middleware),
     devTools: true
