@@ -5,14 +5,17 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useSelector } from "react-redux";
 import { selectCurrentShow } from "../features/files/filesSlice";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCloudUploadAlt } from "@fortawesome/free-solid-svg-icons";
+
 const baseStyle = {
   flex: 1,
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   padding: "20px",
-  borderWidth: 2,
   borderRadius: 2,
+  borderWidth: 2,
   borderColor: "#3464c4",
   borderStyle: "dashed",
   backgroundColor: "white",
@@ -32,6 +35,7 @@ const acceptStyle = {
 const rejectStyle = {
   borderColor: "red",
 };
+
 const FileUploader = ({ setFile, setFiles, multi, setType, type }) => {
   const {
     acceptedFiles,
@@ -55,7 +59,9 @@ const FileUploader = ({ setFile, setFiles, multi, setType, type }) => {
     }),
     [isFocused, isDragAccept, isDragReject]
   );
+
   const show = useSelector(selectCurrentShow);
+
   useEffect(() => {
     if (multi) {
       setFiles(acceptedFiles);
@@ -68,10 +74,27 @@ const FileUploader = ({ setFile, setFiles, multi, setType, type }) => {
     <section className="container">
       <div {...getRootProps({ style })}>
         <input className="file-uploader-input-field" {...getInputProps()} />
-        <em style={{ fontSize: "12px" }}>
-          (Only *.pdf files will be accepted)
-        </em>
+        <p
+          style={{
+            fontWeight: "bold",
+            textAlign: "center",
+          }}
+        >
+          <FontAwesomeIcon
+            icon={faCloudUploadAlt}
+            style={{
+              marginRight: "10px",
+              fontSize: "20px",
+              color: "#3464c4",
+            }}
+          />
+          <span style={{ color: "#3464c4" }}>
+            Drag & drop a PDF here {""}
+            <em>(Only *.pdf files will be accepted)</em>
+          </span>
+        </p>
       </div>
+
       <aside>
         {acceptedFiles.length !== 0 && show ? (
           <div className="cf-uploaded-file">
@@ -84,6 +107,7 @@ const FileUploader = ({ setFile, setFiles, multi, setType, type }) => {
             )}
           </div>
         ) : null}
+
         {acceptedFiles.length !== 0 && !multi && show ? (
           <FormControl style={{ marginTop: "10px" }} fullWidth>
             <InputLabel
@@ -92,6 +116,7 @@ const FileUploader = ({ setFile, setFiles, multi, setType, type }) => {
             >
               Type
             </InputLabel>
+
             <Select
               labelId="demo-simple-select-label"
               value={type}
