@@ -3,7 +3,6 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DatasetOutlinedIcon from "@mui/icons-material/DatasetOutlined";
 import { useNavigate } from "react-router-dom";
 import ProjectItem from "./ProjectItem";
-import PageTransition from "./PageTransition";
 import { useFetchUserProjectsQuery } from "../features/projects/ProjectApiSlice";
 import ButtonNav from "./ButtonNav";
 import { CircularProgress } from "@mui/material";
@@ -50,7 +49,6 @@ const Projects = () => {
             </div>
           </div>
         </div>
-        <PageTransition />
       </div>
     );
   }

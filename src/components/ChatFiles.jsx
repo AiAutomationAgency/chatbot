@@ -9,8 +9,6 @@ import FilesListItem from "./FilesListItem";
 import FileUploader from "./FileUploader";
 import { useUploadFileMutation } from "../features/files/filesApiSlice";
 
-import PageTransition from "./PageTransition";
-
 const ChatFiles = () => {
   const [name_of_tender, setNameOfTender] = useState("");
   const [file, setFile] = useState(null);
@@ -162,7 +160,6 @@ const ChatFiles = () => {
           </button>
         </div>
       </div>
-      <PageTransition />
     </div>
   );
 };

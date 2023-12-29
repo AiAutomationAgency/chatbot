@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import PageTransition from "./PageTransition";
 import {
   CircularProgress,
   FormControl,
@@ -223,7 +222,6 @@ const ProjectEdit = () => {
             </button>
           </form>
         </div>
-        <PageTransition />
       </div>
     );
   }

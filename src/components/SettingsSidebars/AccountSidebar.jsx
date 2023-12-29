@@ -42,6 +42,7 @@ const AccountSidebar = () => {
   const [image, setImage] = useState("");
   const [updateUser] = useUpdateUserMutation();
   const [generateImage] = useGenerateImageMutation();
+
   useEffect(() => {
     if (isSuccess) {
       setEmail(data.email);
@@ -50,6 +51,7 @@ const AccountSidebar = () => {
       setUsername(data.username);
     }
   }, [data, isSuccess]);
+
   useEffect(() => {
     if (isImageSuccess && !imageData.image_is_generating) {
       setImage(imageData.image_url);
@@ -58,6 +60,7 @@ const AccountSidebar = () => {
     }
     // console.log(isImageSuccess)
   }, [isImageSuccess, imageData?.image_is_generating, imageData?.image_url]);
+
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -68,13 +71,16 @@ const AccountSidebar = () => {
       console.log("error:", error);
     }
   };
+
   const clickGenerator = async (e) => {
     if (description !== "") {
       await generateImage({ data: { description } });
       setStartPolling(true);
     }
   };
+
   let content;
+
   if (isLoading) {
     content = (
       <div className="settings-right">

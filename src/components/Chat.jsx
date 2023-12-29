@@ -36,7 +36,7 @@ import { useParams } from "react-router-dom";
 import { useFetchProjectByIdQuery } from "../features/projects/ProjectApiSlice";
 import ButtonNav from "./ButtonNav";
 import BadgeWithName from "./BadgeWithName";
-import PageTransition from "./PageTransition";
+
 import { useTranslation } from "react-i18next";
 const Chat = () => {
   const { t } = useTranslation();
@@ -54,7 +54,9 @@ const Chat = () => {
   const summary = useSelector(selectCurrentSummary);
   const [summarize] = useSummarizeMutation();
   const [userInput, setUserInput] = useState("");
+
   const [loading, setLoading] = useState(false);
+
   const handleClick = async (e) => {
     e.preventDefault();
     setIsDialog(true);
@@ -84,6 +86,7 @@ const Chat = () => {
   const sendMessageUser = async (e) => {
     setLoading(true);
     e.preventDefault();
+
     let obj;
     if (selectedConversationId !== null) {
       obj = {
@@ -232,7 +235,6 @@ const Chat = () => {
             </div>
           </div>
         </div>
-        <PageTransition />
       </div>
     );
   } else {

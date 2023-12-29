@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const LibrarySlice = createSlice({
   name: "library",
+
   initialState: {
     library: [],
     isFiltered: false,
@@ -11,6 +12,7 @@ const LibrarySlice = createSlice({
     isOpen: false,
     files: [],
   },
+
   reducers: {
     getLibraryProjects: (state, action) => {
       state.library = action.payload;
@@ -45,6 +47,8 @@ export const selectCurrentLibrary = (state) => state.library.library;
 export const selectCurrentLibraryFiltered = (state) =>
   state.library.filteredLibrary;
 export const selectCurrentIsFiltered = (state) => state.library.isFiltered;
+
 export const selectCurrentIsOpen = (state) => state.library.isOpen;
+
 export const selectCurrentSidebar = (state) => state.library.sidebar;
 export const selectCurrentSidebarFiles = (state) => state.library.files;

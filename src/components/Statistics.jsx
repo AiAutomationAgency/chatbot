@@ -14,7 +14,6 @@ import {
   LineElement,
   RadialLinearScale,
 } from "chart.js";
-import PageTransition from "./PageTransition";
 import ButtonNav from "./ButtonNav";
 import { useTranslation } from "react-i18next";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
@@ -224,7 +223,6 @@ const Statistics = () => {
           </div>
         </div>
       </div>
-      <PageTransition />
     </div>
   );
 };

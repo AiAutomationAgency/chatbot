@@ -8,7 +8,6 @@ import PolicyIcon from "@mui/icons-material/Policy";
 import AccountSidebar from "./SettingsSidebars/AccountSidebar";
 import ModelConfiguration from "./SettingsSidebars/ModelConfiguration";
 import LanguagePreferences from "./SettingsSidebars/LanguagePreferences";
-import PageTransition from "./PageTransition";
 import SecurityPreferences from "./SettingsSidebars/SecurityPreferences";
 import { useTranslation } from "react-i18next";
 const Settings = () => {
@@ -94,7 +93,6 @@ const Settings = () => {
         </div>
       </div>
       {renderSidebar()}
-      <PageTransition />
     </div>
   );
 };

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PageTransition from "./PageTransition";
 import {
   FormControl,
   InputLabel,
@@ -31,6 +30,7 @@ const ProjectCreate = () => {
   const [enclosure, setEnclosure] = useState("");
   const [uploadFile] = useUploadFileMutation();
   const [addProject] = useAddProjectMutation();
+
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -60,6 +60,7 @@ const ProjectCreate = () => {
       console.log(error);
     }
   };
+
   return (
     <div className="project-item-container" style={{ position: "relative" }}>
       <div className="pci-left">
@@ -82,6 +83,7 @@ const ProjectCreate = () => {
             type={type}
             setType={setType}
           />
+
           <div className="pci-luc-form">
             <div className="pci-luc-form-left">
               <TextField
@@ -180,7 +182,6 @@ const ProjectCreate = () => {
           </button>
         </form>
       </div>
-      <PageTransition />
     </div>
   );
 };

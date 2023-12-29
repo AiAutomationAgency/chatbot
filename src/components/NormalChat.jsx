@@ -4,7 +4,6 @@ import { TextField } from "@mui/material";
 import UserMessage from "./UserMessage";
 import BotMessage from "./BotMessage";
 import SendIcon from "@mui/icons-material/Send";
-import PageTransition from "./PageTransition";
 import { useTranslation } from "react-i18next";
 import { useSendGeneralMessageMutation } from "../features/messages/messagesApiSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -113,7 +112,6 @@ const NormalChat = () => {
           </div>
         </div>
       </div>
-      <PageTransition />
     </div>
   );
   return content;

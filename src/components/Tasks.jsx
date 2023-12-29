@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "../assets/css/tasks.css";
-import PageTransition from "./PageTransition";
 import ButtonNav from "./ButtonNav";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import DatasetOutlinedIcon from "@mui/icons-material/DatasetOutlined";
@@ -139,7 +138,6 @@ const Tasks = () => {
               <CircularProgress />
             </div>
           </div>
-          <PageTransition />
         </div>
       );
     } else {
@@ -249,7 +247,6 @@ const Tasks = () => {
               </Button>
             </div>
           </div>
-          <PageTransition />
         </div>
       );
     }

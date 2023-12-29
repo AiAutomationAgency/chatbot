@@ -6,7 +6,6 @@ import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate, useParams } from "react-router-dom";
-import PageTransition from "./PageTransition";
 import FilesListItem from "./FilesListItem";
 import MarkChatReadIcon from "@mui/icons-material/MarkChatRead";
 import {
@@ -301,7 +300,6 @@ const Project = () => {
             </button>
           </div>
         </div>
-        <PageTransition />
       </div>
     );
   }
