@@ -24,11 +24,13 @@ function App() {
   const location = useLocation();
   const { data } = useFetchModelQuery();
   const { i18n } = useTranslation();
+
   useEffect(() => {
     if (data?.language) {
       i18n.changeLanguage(data?.language.toLowerCase());
     }
   }, [data?.language, i18n]);
+
   return (
     <Routes location={location} key={location.pathname}>
       <Route path="/" element={<Layout />}>
@@ -50,6 +52,7 @@ function App() {
             <Route path="/projects/create" element={<ProjectCreate />} />
             {/* end project routes */}
             {/* library routes */}
+
             <Route path="/library" element={<Library />} />
 
             {/* end library routes */}
