@@ -6,11 +6,12 @@ import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 import CachedOutlinedIcon from "@mui/icons-material/CachedOutlined";
 import CloseIcon from "@mui/icons-material/Close";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
-import PageTransition from "./PageTransition";
+
 import { useNavigate } from "react-router-dom";
 import CustomDataGrid from "./CustomDataGrid";
 import { useFilterLibraryMutation } from "../features/Library/LibraryApiSlice";
 import { useDispatch, useSelector } from "react-redux";
+
 import {
   selectCurrentIsFiltered,
   selectCurrentIsOpen,
@@ -20,6 +21,7 @@ import {
   toggleIsFiltered,
   toggleSidebar,
 } from "../features/Library/LibrarySlice";
+
 import FilesLibraryListItem from "./FilesLibraryListItem";
 import BadgeWithName from "./BadgeWithName";
 import ButtonNav from "./ButtonNav";
@@ -29,16 +31,22 @@ const Library = () => {
   const { t } = useTranslation();
   const [topic, setTopic] = useState("");
   const [mesure, setMesure] = useState("");
+
   const open = useSelector(selectCurrentIsOpen);
+
   const sidebar = useSelector(selectCurrentSidebar);
   const sidebarFiles = useSelector(selectCurrentSidebarFiles);
   const [filterLibrary] = useFilterLibraryMutation();
+
   const isFiltered = useSelector(selectCurrentIsFiltered);
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     const header = document.querySelector(".lc-right-header");
     const body = document.querySelector(".lc-right-history");
     const footer = document.querySelector(".lc-right-footer");
+
     if (open) {
       setTimeout(() => {
         header?.classList.remove("closed");
@@ -53,6 +61,7 @@ const Library = () => {
       }, 100);
     }
   }, [open]);
+
   const FilterHandler = async (e) => {
     e.preventDefault();
     let isTopicNow = false;
@@ -72,6 +81,7 @@ const Library = () => {
     }
     HandleCloseFilterBar();
   };
+
   const HandleCloseFileBar = (files) => {
     dispatch(toggleSidebar({ sidebar: "files", isOpen: false }));
     dispatch(setSidebarFiles(files));
@@ -83,11 +93,14 @@ const Library = () => {
     e.preventDefault();
     dispatch(toggleIsFiltered(false));
   };
+
   const clickFilters = () => {
     dispatch(toggleSidebar({ sidebar: "filters", isOpen: true }));
   };
+
   const renderSidebar = () => {
     let content;
+
     if (sidebar === "filters") {
       content = (
         <div className={open ? "lc-right" : "lc-right closed"}>
@@ -117,6 +130,7 @@ const Library = () => {
               onChange={(e) => setMesure(e.target.value)}
             />
           </ul>
+
           <div className="lc-right-footer" style={{ flexDirection: "column" }}>
             {isFiltered ? (
               <button className="lc-rf-button" onClick={CancelFilter}>
@@ -156,6 +170,7 @@ const Library = () => {
     }
     return content;
   };
+
   return (
     <div className="library-container" style={{ position: "relative" }}>
       <div className="lc-left">
@@ -171,6 +186,7 @@ const Library = () => {
               {t("Library")}
             </span>
           </div>
+
           <div className="lc-lh-right">
             <ButtonNav Comp={CachedOutlinedIcon} text={t("Refresh")} />
             <ButtonNav
@@ -180,6 +196,7 @@ const Library = () => {
             />
           </div>
         </div>
+
         <div className="lc-left-content">
           <div className="lc-lc-top">
             {/* <div className="lc-lc-top-search">
@@ -196,18 +213,19 @@ const Library = () => {
                                 }}
                             />
                         </div> */}
+
             <div className="lc-lc-top-buttons">
               <ButtonNav Comp={FileUploadOutlinedIcon} text={t("Import")} />
               <ButtonNav Comp={FileDownloadOutlinedIcon} text={t("Export")} />
             </div>
           </div>
+
           <div className="lc-lc-bottom">
             <CustomDataGrid />
           </div>
         </div>
       </div>
       {renderSidebar()}
-      <PageTransition />
     </div>
   );
 };
