@@ -8,6 +8,7 @@ import Loading from "./Loading";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -18,7 +19,9 @@ const AnimatedRoutes = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  if (isLoading) {
+  const isLoadingPage = location.pathname === "/login";
+
+  if (isLoading && !isLoadingPage) {
     return <Loading />;
   }
 
