@@ -117,6 +117,7 @@ const Chatbot = () => {
       }
     }
   }, [location, isOpen]);
+
   const ClickHandler = (e) => {
     if (e.target.classList.contains("chatbot")) {
       navigate("/chatbot");
@@ -132,6 +133,7 @@ const Chatbot = () => {
       navigate("/tasks");
     }
   };
+
   const ClickHandlerResponsive = (e) => {
     console.log(e.target.classList);
     if (e.target.classList.contains("chatbot")) {
