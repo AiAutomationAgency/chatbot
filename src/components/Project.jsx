@@ -32,29 +32,53 @@ const Project = () => {
   const [files, setFiles] = useState(null);
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("guidelines");
-  const project_id = useParams().projectId;
+
+  // const paramProjectId = useParams().projectId;
+
+  const { projectId: paramProjectId } = useParams();
+  const [projectId, setProjectId] = useState("");
   const navigate = useNavigate();
+
   const [selectFiles] = useSelectFilesMutation();
   const [uploadFile] = useUploadFileMutation();
   const [deleteProject] = useDeleteProjectMutation();
   const selectedFiles = useSelector(selectCurrentSelectedFiles);
-  const { data: project, isLoading } = useFetchProjectByIdQuery(project_id);
+  const { data: project, isLoading } = useFetchProjectByIdQuery(paramProjectId);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (paramProjectId) {
+      setProjectId(paramProjectId);
+      localStorage.setItem("projectId", paramProjectId);
+    } else {
+      // Retrieve projectId from local storage if not in URL
+      const storedProjectId = localStorage.getItem("projectId");
+      if (storedProjectId) {
+        setProjectId(storedProjectId);
+      } else {
+        // Handle the case where projectId is not available
+        console.log("Project ID is not available");
+        navigate("/chatbot"); // Redirect to projects page or another appropriate page
+      }
+    }
+  }, [paramProjectId, navigate]);
+
   const startChatting = async (e) => {
     e.preventDefault();
     try {
-      await selectFiles({ fileNames: selectedFiles, project_id });
-      navigate(`/chatbot/${project_id}`);
+      await selectFiles({ fileNames: selectedFiles, paramProjectId });
+      navigate(`/chatbot/${paramProjectId}`);
     } catch (error) {
       console.log(error);
     }
   };
+
   const uploadFiles = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     try {
       formData.append("uploaded_file", files);
-      formData.append("project_id", project_id);
+      formData.append("paramProjectId", paramProjectId);
       formData.append("type", type);
       uploadFile(formData);
       setFiles(null);
@@ -68,7 +92,7 @@ const Project = () => {
   }, [files, dispatch]);
   const deleteHandler = async () => {
     try {
-      await deleteProject(project_id);
+      await deleteProject(paramProjectId);
       navigate("/projects");
     } catch (error) {
       console.log(error);

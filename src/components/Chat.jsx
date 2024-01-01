@@ -40,15 +40,22 @@ import BadgeWithName from "./BadgeWithName";
 import { useTranslation } from "react-i18next";
 const Chat = () => {
   const { t } = useTranslation();
-  const projectId = useParams().projectId;
+
+  const { projectId: paramProjectId } = useParams();
+  const [projectId, setProjectId] = useState("");
+
+  // const projectId = useParams().projectId;
+
   const { data: project, isSuccess } = useFetchProjectByIdQuery(projectId);
   const selectedConversationId = useSelector(selectCurrentConversationId);
   const { data: history, isLoading } = useGetAllQuery();
+
   const {
     data: messages,
     isError,
     refetch,
   } = useGetAllMessagesQuery(selectedConversationId);
+
   const [sendMessage] = useSendMessageMutation();
   const [instantMessages, setInstantMessages] = useState([]);
   const summary = useSelector(selectCurrentSummary);
@@ -57,10 +64,30 @@ const Chat = () => {
 
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    if (paramProjectId) {
+      setProjectId(paramProjectId);
+      localStorage.setItem("projectId", paramProjectId);
+    } else {
+      // Retrieve projectId from local storage if not in URL
+      const storedProjectId = localStorage.getItem("projectId");
+
+      if (storedProjectId) {
+        setProjectId(storedProjectId);
+        console.log("get now ", storedProjectId);
+      } else {
+        // Handle the case where projectId is not available
+        console.log("Project ID is not available");
+        navigate("/chatbot"); // Redirect to projects page or another appropriate page
+      }
+    }
+  }, [paramProjectId]);
+
   const handleClick = async (e) => {
     e.preventDefault();
     setIsDialog(true);
   };
+
   useEffect(() => {
     const refetcher = async () => {
       await refetch(selectedConversationId);
@@ -69,11 +96,13 @@ const Chat = () => {
       refetcher();
     }
   }, [selectedConversationId, refetch]);
+
   useEffect(() => {
     if (!isError && messages) {
       setInstantMessages(messages);
     }
   }, [isError, messages]);
+
   useEffect(() => {
     if (summary !== "") {
       setInstantMessages((prev) => [
@@ -140,16 +169,20 @@ const Chat = () => {
       sendMessageUser(event);
     }
   };
+
   //auto scroll
   const messagesEndRef = useRef(null);
+
   useEffect(() => {
     messagesEndRef?.current?.scrollIntoView({ behavior: "smooth" });
   }, [instantMessages]);
+
   //dialogue sumary
   const [isDialog, setIsDialog] = useState(false);
   const [isDialogAdded, setIsDialogAdded] = useState(false);
   const [selectedFileSumm, setSelectedFileSumm] = useState("");
   const selectedFiles = useSelector(selectCurrentSelectedFiles);
+
   const handleCloseDialog = (bool) => {
     setIsDialog(false);
     setIsDialogAdded(bool);
@@ -169,6 +202,7 @@ const Chat = () => {
       get_summary();
     }
   }, [isDialogAdded, summarize, selectedFileSumm]);
+
   let content;
 
   if (isLoading && !isSuccess) {
@@ -261,6 +295,7 @@ const Chat = () => {
               />
             </div>
           </div>
+
           <div className="cc-left-messages-container">
             {instantMessages.map((msg, index) => {
               if (msg.sender === "bot") {
