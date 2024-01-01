@@ -3,7 +3,7 @@ import "../assets/css/chat.css";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbDownOffAltOutlinedIcon from "@mui/icons-material/ThumbDownOffAltOutlined";
-import { IconButton } from "@mui/material";
+import { IconButton, Typography } from "@mui/material";
 
 const BotMessage = ({ msg }) => {
   function copyToClipboard(text) {
@@ -16,10 +16,24 @@ const BotMessage = ({ msg }) => {
         console.error("Unable to copy text to clipboard", err);
       });
   }
+
+  // Splitting the message_content by '-@' and creating an array of strings
+  const messageLines = msg.message_content.split("-@");
+
   return (
     <div className="cc-lmc-bot-container">
       <div className="cc-lmc-bc-body">
-        <p>{msg.message_content}</p>
+        {messageLines.map((line, idx) => (
+          <Typography
+            key={idx}
+            variant="body1"
+            gutterBottom
+            style={{ wordWrap: "break-word", whiteSpace: "pre-wrap" }}
+          >
+            {line}
+          </Typography>
+        ))}
+
         <div className="cc-lmc-bc-actions">
           <div className="cc-lmc-bc-actions-left">
             <div className="cc-lmc-bc-actions-icon-holder">

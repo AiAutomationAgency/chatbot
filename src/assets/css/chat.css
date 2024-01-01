@@ -113,6 +113,14 @@
   background: #3464c47a;
   border-radius: 20px;
   letter-spacing: 1.5px;
+
+  max-width: 100%; /* Ensure it doesn't overflow */
+
+  word-wrap: break-word; /* Break long words */
+
+  line-height: 1.5; /* Improve readability */
+
+  white-space: pre-wrap; /* Maintains whitespace and allows normal line breaks */
 }
 
 .cc-lmc-bc-body.user {
