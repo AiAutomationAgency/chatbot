@@ -1,1 +1,1 @@
-export const baseUrl = "https://app.aideat.com/api/";
+export const baseUrl = import.meta.env.VITE_BASE_URL;
