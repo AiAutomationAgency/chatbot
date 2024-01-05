@@ -33,41 +33,50 @@ const Project = () => {
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("guidelines");
 
-  // const paramProjectId = useParams().projectId;
+  const project_id = useParams().projectId;
 
-  const { projectId: paramProjectId } = useParams();
-  const [projectId, setProjectId] = useState("");
+  // const { projectId: paramProjectId } = useParams();
+  // const [projectId, setProjectId] = useState("");
+
   const navigate = useNavigate();
 
   const [selectFiles] = useSelectFilesMutation();
   const [uploadFile] = useUploadFileMutation();
   const [deleteProject] = useDeleteProjectMutation();
   const selectedFiles = useSelector(selectCurrentSelectedFiles);
-  const { data: project, isLoading } = useFetchProjectByIdQuery(paramProjectId);
+
+  const { data: project, isLoading } = useFetchProjectByIdQuery(project_id);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (paramProjectId) {
-      setProjectId(paramProjectId);
-      localStorage.setItem("projectId", paramProjectId);
-    } else {
-      // Retrieve projectId from local storage if not in URL
-      const storedProjectId = localStorage.getItem("projectId");
-      if (storedProjectId) {
-        setProjectId(storedProjectId);
-      } else {
-        // Handle the case where projectId is not available
-        console.log("Project ID is not available");
-        navigate("/chatbot"); // Redirect to projects page or another appropriate page
-      }
-    }
-  }, [paramProjectId, navigate]);
+  // TODO:
+  // useEffect(() => {
+  //   if (paramProjectId) {
+  //     setProjectId(paramProjectId);
+  //     localStorage.setItem("projectId", paramProjectId);
+  //   } else {
+  //     // Retrieve projectId from local storage if not in URL
+  //     const storedProjectId = localStorage.getItem("projectId");
+  //     if (storedProjectId) {
+  //       setProjectId(storedProjectId);
+  //     } else {
+  //       // Handle the case where projectId is not available
+  //       console.log("Project ID is not available");
+  //       navigate("/chatbot"); // Redirect to projects page or another appropriate page
+  //     }
+  //   }
+  // }, [paramProjectId, navigate]);
 
   const startChatting = async (e) => {
     e.preventDefault();
     try {
-      await selectFiles({ fileNames: selectedFiles, paramProjectId });
-      navigate(`/chatbot/${paramProjectId}`);
+      const numericProjectId = Number(project_id);
+
+      await selectFiles({
+        fileNames: selectedFiles,
+        project_id: numericProjectId,
+      });
+
+      navigate(`/chatbot/${numericProjectId}`);
     } catch (error) {
       console.log(error);
     }
@@ -78,7 +87,7 @@ const Project = () => {
     const formData = new FormData();
     try {
       formData.append("uploaded_file", files);
-      formData.append("paramProjectId", paramProjectId);
+      formData.append("paramProjectId", project_id);
       formData.append("type", type);
       uploadFile(formData);
       setFiles(null);
@@ -92,7 +101,7 @@ const Project = () => {
   }, [files, dispatch]);
   const deleteHandler = async () => {
     try {
-      await deleteProject(paramProjectId);
+      await deleteProject(project_id);
       navigate("/projects");
     } catch (error) {
       console.log(error);

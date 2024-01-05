@@ -41,10 +41,10 @@ import { useTranslation } from "react-i18next";
 const Chat = () => {
   const { t } = useTranslation();
 
-  const { projectId: paramProjectId } = useParams();
-  const [projectId, setProjectId] = useState("");
+  // const { projectId: paramProjectId } = useParams();
+  // const [projectId, setProjectId] = useState("");
 
-  // const projectId = useParams().projectId;
+  const projectId = useParams().projectId;
 
   const { data: project, isSuccess } = useFetchProjectByIdQuery(projectId);
   const selectedConversationId = useSelector(selectCurrentConversationId);
@@ -64,24 +64,26 @@ const Chat = () => {
 
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    if (paramProjectId) {
-      setProjectId(paramProjectId);
-      localStorage.setItem("projectId", paramProjectId);
-    } else {
-      // Retrieve projectId from local storage if not in URL
-      const storedProjectId = localStorage.getItem("projectId");
+  // TODO:
+  // useEffect(() => {
+  //   if (projectId) {
+  //     setProjectId(projectId);
+  //     console.log("set now ", projectId);
+  //     localStorage.setItem("projectId", projectId);
+  //   } else {
+  //     // Retrieve projectId from local storage if not in URL
+  //     const storedProjectId = localStorage.getItem("projectId");
 
-      if (storedProjectId) {
-        setProjectId(storedProjectId);
-        console.log("get now ", storedProjectId);
-      } else {
-        // Handle the case where projectId is not available
-        console.log("Project ID is not available");
-        navigate("/chatbot"); // Redirect to projects page or another appropriate page
-      }
-    }
-  }, [paramProjectId]);
+  //     if (storedProjectId) {
+  //       setProjectId(storedProjectId);
+  //       console.log("get now ", storedProjectId);
+  //     } else {
+  //       // Handle the case where projectId is not available
+  //       console.log("Project ID is not available");
+  //       navigate("/chatbot"); // Redirect to projects page or another appropriate page
+  //     }
+  //   }
+  // }, [projectId]);
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -117,6 +119,7 @@ const Chat = () => {
     e.preventDefault();
 
     let obj;
+
     if (selectedConversationId !== null) {
       obj = {
         user_input: userInput,
