@@ -84,11 +84,16 @@ const Project = () => {
 
   const uploadFiles = async (e) => {
     e.preventDefault();
+
     const formData = new FormData();
+
     try {
+      const numericProjectId = Number(project_id);
+
       formData.append("uploaded_file", files);
-      formData.append("paramProjectId", project_id);
+      formData.append("project_id", numericProjectId);
       formData.append("type", type);
+
       uploadFile(formData);
       setFiles(null);
     } catch (error) {
@@ -99,6 +104,7 @@ const Project = () => {
   useEffect(() => {
     dispatch(toggleShow(true));
   }, [files, dispatch]);
+
   const deleteHandler = async () => {
     try {
       await deleteProject(project_id);
