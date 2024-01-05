@@ -88,13 +88,13 @@ const Statistics = () => {
   };
   const data3 = {
     labels: [
-      t("Eating"),
-      t("Drinking"),
-      t("Sleeping"),
-      t("Designing"),
-      t("Coding"),
-      t("Cycling"),
-      t("Running"),
+      t("label 1"),
+      t("label 2"),
+      t("label 3"),
+      t("label 4"),
+      t("label 5"),
+      t("label 6"),
+      t("label 7"),
     ],
     datasets: [
       {
