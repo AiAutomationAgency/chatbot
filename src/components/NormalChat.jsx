@@ -124,6 +124,7 @@ const NormalChat = () => {
 
           <div ref={messagesEndRef}></div>
         </div>
+
         <div className="cc-left-input-container">
           <TextField
             className="cc-left-ic-input"

@@ -38,6 +38,7 @@ import ButtonNav from "./ButtonNav";
 import BadgeWithName from "./BadgeWithName";
 
 import { useTranslation } from "react-i18next";
+import Dot from "./Dot";
 const Chat = () => {
   const { t } = useTranslation();
 
@@ -49,6 +50,8 @@ const Chat = () => {
   const { data: project, isSuccess } = useFetchProjectByIdQuery(projectId);
   const selectedConversationId = useSelector(selectCurrentConversationId);
   const { data: history, isLoading } = useGetAllQuery();
+
+  const [awaitingReply, setAwaitingReply] = useState(false);
 
   const {
     data: messages,
@@ -116,6 +119,8 @@ const Chat = () => {
 
   const sendMessageUser = async (e) => {
     setLoading(true);
+    setAwaitingReply(true);
+
     e.preventDefault();
 
     let obj;
@@ -137,10 +142,16 @@ const Chat = () => {
       ...prev,
       { message_content: userInput, sender: "user" },
     ]);
+
     try {
       await sendMessage(obj);
+
+      setAwaitingReply(false);
       setLoading(false);
     } catch (error) {
+      setAwaitingReply(false); // In case of error, stop waiting
+      setLoading(false);
+
       console.log(error);
     }
   };
@@ -306,8 +317,22 @@ const Chat = () => {
               }
               return <UserMessage msg={msg} key={index} />;
             })}
+
+
+            {awaitingReply && (
+              <div className="loading-animation">
+                <div className="typingDots">
+                  <Dot delay={0} />
+                  <Dot delay={0.1} />
+                  <Dot delay={0.2} />
+                </div>
+              </div>
+            )}
+
+            
             <div ref={messagesEndRef}></div>
           </div>
+
           <div className="cc-left-input-container">
             <TextField
               className="cc-left-ic-input"
