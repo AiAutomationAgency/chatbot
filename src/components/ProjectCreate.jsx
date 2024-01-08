@@ -45,7 +45,7 @@ const ProjectCreate = () => {
         result,
       };
       const res = await addProject(obj).unwrap();
-      console.log(res);
+      // console.log(res);
       if (files && files.length !== 0) {
         const formData = new FormData();
         formData.append("uploaded_file", files);
@@ -55,7 +55,7 @@ const ProjectCreate = () => {
         setFiles(null);
       }
       navigate(`/projects/${res.project_id}`);
-      console.log(`/projects/${res.project_id}`);
+      // console.log(`/projects/${res.project_id}`);
     } catch (error) {
       console.log(error);
     }
