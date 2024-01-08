@@ -45,6 +45,10 @@ const Project = () => {
   const [deleteProject] = useDeleteProjectMutation();
   const selectedFiles = useSelector(selectCurrentSelectedFiles);
 
+  const [isUploading, setIsUploading] = useState(false);
+
+  const [fileUploadStatus, setFileUploadStatus] = useState({});
+
   const { data: project, isLoading } = useFetchProjectByIdQuery(project_id);
   const dispatch = useDispatch();
 
@@ -84,20 +88,38 @@ const Project = () => {
 
   const uploadFiles = async (e) => {
     e.preventDefault();
+    setIsUploading(true); // Start uploading
 
-    const formData = new FormData();
+    // Set the latest file being uploaded
+    if (files) {
+      setFileUploadStatus((prev) => ({
+        ...prev,
+        [files?.name]: "uploading",
+        // uploading: "uploading",
+      }));
 
-    try {
+      const formData = new FormData();
+
       const numericProjectId = Number(project_id);
 
       formData.append("uploaded_file", files);
       formData.append("project_id", numericProjectId);
       formData.append("type", type);
 
-      uploadFile(formData);
       setFiles(null);
-    } catch (error) {
-      console.log(error);
+
+      try {
+        await uploadFile(formData);
+
+        setFileUploadStatus((prev) => ({ ...prev, [files.name]: "uploaded" }));
+      } catch (error) {
+        console.error(error);
+        setIsUploading(false); // End uploading whether success or error
+
+        setFileUploadStatus((prev) => ({ ...prev, [files.name]: "failed" }));
+      } finally {
+        setIsUploading(false); // End uploading whether success or error
+      }
     }
   };
 
@@ -206,6 +228,7 @@ const Project = () => {
     const header = document.querySelector(".pci-right-header");
     const body = document.querySelector(".pci-right-history");
     const footer = document.querySelector(".pci-right-footer");
+
     if (open) {
       setTimeout(() => {
         header?.classList.remove("closed");
@@ -220,7 +243,22 @@ const Project = () => {
       }, 100);
     }
   }, [open]);
+
+  let isAnyFileUploading = false;
+
+  // Check if any file is currently uploading
+  if (project?.files) {
+    isAnyFileUploading =
+      project?.files?.length === 0
+        ? isUploading
+        : project.files.some(
+            (file) => fileUploadStatus[file.file_name] === "uploading"
+          );
+  }
+
   let content;
+
+  // loading
   if (isLoading) {
     content = (
       <div
@@ -311,13 +349,25 @@ const Project = () => {
               }}
             />
           </div>
+
           <ul
             className={open ? "pci-right-history" : "pci-right-history closed"}
           >
             {project?.files?.map((f, index) => {
               return <FilesListItem key={index} item={f} />;
             })}
+
+            {isAnyFileUploading && (
+              // Show spinner in the center while the file is uploading
+              <div
+                className="projects-container"
+                style={{ justifyContent: "center", alignItems: "center" }}
+              >
+                <CircularProgress sx={{ color: "#3464c4" }} />
+              </div>
+            )}
           </ul>
+
           <div
             className={open ? "pci-right-footer" : "pci-right-footer closed"}
           >
@@ -327,12 +377,13 @@ const Project = () => {
               setFile={setFiles}
               multi={false}
             />
-            {files ? (
+            {files || !isUploading ? (
               <button className="cc-rf-button" onClick={uploadFiles}>
                 <CloudUploadOutlinedIcon />
                 {t("Upload File")}
               </button>
             ) : null}
+
             <button className="cc-rf-button" onClick={startChatting}>
               <MarkChatReadIcon />
               {t("Start Chatting")}
@@ -342,6 +393,7 @@ const Project = () => {
       </div>
     );
   }
+
   return content;
 };
 
