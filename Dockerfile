@@ -1,4 +1,6 @@
-FROM node:latest
+FROM alpine:3.18
+
+ENV NODE_VERSION 18.19.0
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
