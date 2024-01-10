@@ -79,7 +79,7 @@ const Project = () => {
     // Initialize WebSocket connection
 
     const websocket = new WebSocket(
-      `wss://app.aideat.com/api/ws/filehandling/?token=${token}`
+      `${import.meta.env.VITE_WS_BASE_URL}/?token=${token}`
     );
 
     websocket.onopen = () => {};
