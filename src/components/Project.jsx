@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../assets/css/project.css";
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
@@ -26,12 +26,15 @@ import ButtonNav from "./ButtonNav";
 import BadgeWithName from "./BadgeWithName";
 import { CircularProgress } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import { selectCurrentToken } from "../features/auth/authSlice";
 
 const Project = () => {
   const { t } = useTranslation();
   const [files, setFiles] = useState(null);
   const [open, setOpen] = useState(false);
   const [type, setType] = useState("guidelines");
+
+  const token = useSelector(selectCurrentToken);
 
   const project_id = useParams().projectId;
 
@@ -49,8 +52,61 @@ const Project = () => {
 
   const [fileUploadStatus, setFileUploadStatus] = useState({});
 
-  const { data: project, isLoading } = useFetchProjectByIdQuery(project_id);
+  const [ws, setWs] = useState(null);
+  const [uploadProgress, setUploadProgress] = useState("idle");
+
+  const shouldShowSpinner = uploadProgress === "inProgress" && type !== "plan";
+
+  const [isDataLoading, setIsDataLoading] = useState(true);
+
+  const {
+    data: project,
+    isLoading,
+    refetch,
+  } = useFetchProjectByIdQuery(project_id);
+
   const dispatch = useDispatch();
+
+  // Keep track of the current state of uploadProgress
+  const uploadProgressRef = useRef(uploadProgress);
+
+  useEffect(() => {
+    // Update ref whenever uploadProgress changes
+    uploadProgressRef.current = uploadProgress;
+  }, [uploadProgress]);
+
+  useEffect(() => {
+    // Initialize WebSocket connection
+
+    const websocket = new WebSocket(
+      `wss://app.aideat.com/api/ws/filehandling/?token=${token}`
+    );
+
+    websocket.onopen = () => {};
+
+    websocket.onmessage = (e) => {
+      const res = JSON.parse(e.data);
+
+      if (res?.message === "InProgress") {
+        if (type === "guidelines" || type === "results") {
+          setUploadProgress("inProgress");
+        }
+      } else if (res?.message === "Task completed") {
+        setUploadProgress("completed");
+        refetch();
+      }
+    };
+
+    setWs(websocket);
+
+    // Clean up WebSocket connection when component unmounts
+    return () => {
+      // TODO: Close WebSocket connection
+      if (uploadProgressRef.current === "completed") {
+        websocket.close();
+      }
+    };
+  }, [refetch, uploadProgressRef.current]);
 
   // TODO:
   // useEffect(() => {
@@ -111,6 +167,16 @@ const Project = () => {
       try {
         await uploadFile(formData);
 
+        if (type === "guidelines" || type === "results") {
+          // Send WebSocket message for specific file types
+          ws?.send(
+            JSON.stringify({
+              action: "fileUploaded",
+              projectId: numericProjectId,
+            })
+          );
+        }
+
         setFileUploadStatus((prev) => ({ ...prev, [files.name]: "uploaded" }));
       } catch (error) {
         console.error(error);
@@ -135,6 +201,7 @@ const Project = () => {
       console.log(error);
     }
   };
+
   const renderScores = () => {
     if (project && project.extracted_scores !== null) {
       const result = [
@@ -224,6 +291,7 @@ const Project = () => {
       return [];
     }
   };
+
   useEffect(() => {
     const header = document.querySelector(".pci-right-header");
     const body = document.querySelector(".pci-right-history");
@@ -292,50 +360,141 @@ const Project = () => {
               />
             </div>
           </div>
-          <div className="pci-left-content">
-            <h3 className="pci-lc-title">{t("Description")}:</h3>
-            <p className="pci-lc-desc full">
-              {project.description || t("Generating") + " ..."}
-            </p>
 
-            <div className="pci-lc-row">
-              <div className="pci-lc-col">
-                <h3 className="pci-lc-title">{t("Work content")}:</h3>
-                <p className="pci-lc-desc">{project.werkinhood || "NAN"}</p>
-              </div>
-              <div className="pci-lc-col">
-                <h3 className="pci-lc-title">{t("Enclosure")}:</h3>
-                <p className="pci-lc-desc">{project.enclosure || "NAN"}</p>
-              </div>
+          {shouldShowSpinner && (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100%",
+                width: "100%",
+                position: "absolute",
+                top: 0,
+                left: 0,
+                // backgroundColor: "rgba(0, 0, 0, 0.5)",
+                zIndex: 999,
+                borderRadius: "5px",
+                padding: "20px",
+                color: "#fff",
+                fontWeight: "bold",
+                fontSize: "20px",
+                textAlign: "center",
+              }}
+            >
+              <CircularProgress />
             </div>
-            <div className="pci-lc-row">
-              <div className="pci-lc-col">
-                <h3 className="pci-lc-title">{t("Contract type")}:</h3>
-                <p className="pci-lc-desc">{project.contract_type || "NAN"}</p>
+          )}
+
+          {(type === "plan" || uploadProgress === "completed") && (
+            <div className="pci-left-content">
+              <h3 className="pci-lc-title">{t("Description")}:</h3>
+              <p className="pci-lc-desc full">
+                {project.description || t("Generating") + " ..."}
+              </p>
+
+              <div className="pci-lc-row">
+                <div className="pci-lc-col">
+                  <h3 className="pci-lc-title">{t("Work content")}:</h3>
+                  <p className="pci-lc-desc">{project.werkinhood || "NAN"}</p>
+                </div>
+                <div className="pci-lc-col">
+                  <h3 className="pci-lc-title">{t("Enclosure")}:</h3>
+                  <p className="pci-lc-desc">{project.enclosure || "NAN"}</p>
+                </div>
               </div>
-              <div className="pci-lc-col">
-                <h3 className="pci-lc-title">{t("Client")}:</h3>
-                <p className="pci-lc-desc">{project.client || "NAN"}</p>
+              <div className="pci-lc-row">
+                <div className="pci-lc-col">
+                  <h3 className="pci-lc-title">{t("Contract type")}:</h3>
+                  <p className="pci-lc-desc">
+                    {project.contract_type || "NAN"}
+                  </p>
+                </div>
+                <div className="pci-lc-col">
+                  <h3 className="pci-lc-title">{t("Client")}:</h3>
+                  <p className="pci-lc-desc">{project.client || "NAN"}</p>
+                </div>
               </div>
+              <div className="pci-lc-row">
+                <div className="pci-lc-col">
+                  <h3 className="pci-lc-title">{t("Status")}:</h3>
+                  <p className="pci-lc-desc">
+                    {project.status || t("In progress")}
+                  </p>
+                </div>
+                <div className="pci-lc-col">
+                  <h3 className="pci-lc-title">{t("Results")}:</h3>
+                  <p className="pci-lc-desc">
+                    {project.result || t("Pending")}
+                  </p>
+                </div>
+              </div>
+              {/* <p className="pci-lc-desc full">{project.extracted_scores || '"overall": "","Organisatie van het werk": "5,40","Borgen bereikbaarheid, veiligheid, voorkomen hinder": "5,00","Invulling digitalisering opdracht": "5,27","Voorbereiding en kostencalculatie deelopdrachten": "6,00","Inrichten groeiplaats": "4,72","Planten van bomen": "4,60","Nazorgfase": "5,35","Brandstoffen < 3500kg": "120.000","Brandstoffen > 3500kg": "0","CO2-prestatieladder": "275.000","Extra inzet SROI": "50.000"'}</p> */}
+
+              {renderScores().map((ItemScore, index) => {
+                return (
+                  <React.Fragment key={index}>{ItemScore} </React.Fragment>
+                );
+              })}
             </div>
-            <div className="pci-lc-row">
-              <div className="pci-lc-col">
-                <h3 className="pci-lc-title">{t("Status")}:</h3>
-                <p className="pci-lc-desc">
-                  {project.status || t("In progress")}
+          )}
+
+          {uploadProgress !== "inProgress" &&
+            uploadProgress !== "completed" &&
+            type !== "plan" && (
+              <div className="pci-left-content">
+                <h3 className="pci-lc-title">{t("Description")}:</h3>
+                <p className="pci-lc-desc full">
+                  {project.description || t("Generating") + " ..."}
                 </p>
+
+                <div className="pci-lc-row">
+                  <div className="pci-lc-col">
+                    <h3 className="pci-lc-title">{t("Work content")}:</h3>
+                    <p className="pci-lc-desc">{project.werkinhood || "NAN"}</p>
+                  </div>
+                  <div className="pci-lc-col">
+                    <h3 className="pci-lc-title">{t("Enclosure")}:</h3>
+                    <p className="pci-lc-desc">{project.enclosure || "NAN"}</p>
+                  </div>
+                </div>
+                <div className="pci-lc-row">
+                  <div className="pci-lc-col">
+                    <h3 className="pci-lc-title">{t("Contract type")}:</h3>
+                    <p className="pci-lc-desc">
+                      {project.contract_type || "NAN"}
+                    </p>
+                  </div>
+                  <div className="pci-lc-col">
+                    <h3 className="pci-lc-title">{t("Client")}:</h3>
+                    <p className="pci-lc-desc">{project.client || "NAN"}</p>
+                  </div>
+                </div>
+                <div className="pci-lc-row">
+                  <div className="pci-lc-col">
+                    <h3 className="pci-lc-title">{t("Status")}:</h3>
+                    <p className="pci-lc-desc">
+                      {project.status || t("In progress")}
+                    </p>
+                  </div>
+                  <div className="pci-lc-col">
+                    <h3 className="pci-lc-title">{t("Results")}:</h3>
+                    <p className="pci-lc-desc">
+                      {project.result || t("Pending")}
+                    </p>
+                  </div>
+                </div>
+                {/* <p className="pci-lc-desc full">{project.extracted_scores || '"overall": "","Organisatie van het werk": "5,40","Borgen bereikbaarheid, veiligheid, voorkomen hinder": "5,00","Invulling digitalisering opdracht": "5,27","Voorbereiding en kostencalculatie deelopdrachten": "6,00","Inrichten groeiplaats": "4,72","Planten van bomen": "4,60","Nazorgfase": "5,35","Brandstoffen < 3500kg": "120.000","Brandstoffen > 3500kg": "0","CO2-prestatieladder": "275.000","Extra inzet SROI": "50.000"'}</p> */}
+
+                {renderScores().map((ItemScore, index) => {
+                  return (
+                    <React.Fragment key={index}>{ItemScore} </React.Fragment>
+                  );
+                })}
               </div>
-              <div className="pci-lc-col">
-                <h3 className="pci-lc-title">{t("Results")}:</h3>
-                <p className="pci-lc-desc">{project.result || t("Pending")}</p>
-              </div>
-            </div>
-            {/* <p className="pci-lc-desc full">{project.extracted_scores || '"overall": "","Organisatie van het werk": "5,40","Borgen bereikbaarheid, veiligheid, voorkomen hinder": "5,00","Invulling digitalisering opdracht": "5,27","Voorbereiding en kostencalculatie deelopdrachten": "6,00","Inrichten groeiplaats": "4,72","Planten van bomen": "4,60","Nazorgfase": "5,35","Brandstoffen < 3500kg": "120.000","Brandstoffen > 3500kg": "0","CO2-prestatieladder": "275.000","Extra inzet SROI": "50.000"'}</p> */}
-            {renderScores().map((ItemScore, index) => {
-              return <React.Fragment key={index}>{ItemScore}</React.Fragment>;
-            })}
-          </div>
+            )}
         </div>
+
         <div className={open ? "pci-right" : "pci-right closed"}>
           <div
             className={open ? "pci-right-header" : "pci-right-header closed"}
