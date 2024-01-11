@@ -15,6 +15,8 @@ import "../assets/css/project.css";
 import { useAddProjectMutation } from "../features/projects/ProjectApiSlice";
 import ButtonNav from "./ButtonNav";
 import { useTranslation } from "react-i18next";
+import CircularProgress from "@mui/material/CircularProgress";
+
 const ProjectCreate = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -31,8 +33,12 @@ const ProjectCreate = () => {
   const [uploadFile] = useUploadFileMutation();
   const [addProject] = useAddProjectMutation();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const submitHandler = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+
     try {
       const obj = {
         project_name,
@@ -44,8 +50,10 @@ const ProjectCreate = () => {
         description: desc,
         result,
       };
+
       const res = await addProject(obj).unwrap();
       // console.log(res);
+
       if (files && files.length !== 0) {
         const formData = new FormData();
         formData.append("uploaded_file", files);
@@ -54,10 +62,14 @@ const ProjectCreate = () => {
         await uploadFile(formData);
         setFiles(null);
       }
+
       navigate(`/projects/${res.project_id}`);
       // console.log(`/projects/${res.project_id}`);
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false); // End loading
     }
   };
 
@@ -76,6 +88,7 @@ const ProjectCreate = () => {
             />
           </div>
         </div>
+
         <form className="pci-left-upload-container" onSubmit={submitHandler}>
           <FileUploader
             setFile={setFiles}
@@ -176,8 +189,13 @@ const ProjectCreate = () => {
             value={desc}
             onChange={(e) => setDesc(e.target.value)}
           />
-          <button type="submit" className="pci-rf-button-upload">
-            <MarkChatReadIcon />
+
+          <button
+            type="submit"
+            className="pci-rf-button-upload"
+            disabled={isLoading}
+          >
+            {isLoading ? <CircularProgress size={24} /> : <MarkChatReadIcon />}
             {t("Create")}
           </button>
         </form>
