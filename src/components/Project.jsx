@@ -77,7 +77,6 @@ const Project = () => {
 
   useEffect(() => {
     // Initialize WebSocket connection
-
     const websocket = new WebSocket(
       `${import.meta.env.VITE_WS_BASE_URL}/?token=${token}`
     );
