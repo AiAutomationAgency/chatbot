@@ -28,6 +28,11 @@ import { CircularProgress } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { selectCurrentToken } from "../features/auth/authSlice";
 
+import { VITE_WS_BASE_URL } from "../../src/app/api/BaseURL";
+
+
+
+
 const Project = () => {
   const { t } = useTranslation();
   const [files, setFiles] = useState(null);
@@ -77,9 +82,7 @@ const Project = () => {
 
   useEffect(() => {
     // Initialize WebSocket connection
-    const websocket = new WebSocket(
-      `${import.meta.env.VITE_WS_BASE_URL}/?token=${token}`
-    );
+    const websocket = new WebSocket(`${VITE_WS_BASE_URL}/?token=${token}`);
 
     websocket.onopen = () => {};
 
