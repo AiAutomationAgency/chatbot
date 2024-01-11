@@ -316,7 +316,7 @@ const Project = () => {
   // Check if any file is currently uploading
   if (project?.files) {
     isAnyFileUploading =
-      project?.files?.length === 0
+      project?.files?.length === 0 || project?.files?.length > 0
         ? isUploading
         : project.files.some(
             (file) => fileUploadStatus[file.file_name] === "uploading"
