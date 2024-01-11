@@ -556,10 +556,60 @@ const Project = () => {
 
             {isAnyFileUploading && (
               // Show spinner in the center while the file is uploading
+
               <div
-                className="projects-container"
-                style={{ justifyContent: "center", alignItems: "center" }}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "100%",
+                  width: "100%",
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  borderRadius: "5px",
+                  padding: "20px",
+                  color: "#fff",
+                  fontWeight: "bold",
+                  fontSize: "20px",
+                  textAlign: "center",
+                  zIndex: 1000,
+                }}
               >
+                <div
+                  style={{
+                    margin: "20px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    maxWidth: "400px",
+                    padding: "10px 20px",
+                    backgroundColor: "#2C2C2C",
+                    borderRadius: "5px",
+                    opacity: "0.8",
+                    zIndex: 999,
+                    cursor: "pointer",
+                    fontSize: "16px",
+                    fontWeight: "500",
+                    textAlign: "center",
+                    lineHeight: "1.5",
+                    boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontSize: "16px",
+                      color: "#fff",
+                      fontWeight: "600",
+                      textAlign: "center",
+                      lineHeight: "1.5",
+                    }}
+                  >
+                    We are uploading the document, it will take some time!
+                  </p>
+                </div>
+
                 <CircularProgress sx={{ color: "#3464c4" }} />
               </div>
             )}
