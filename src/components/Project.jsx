@@ -30,9 +30,6 @@ import { selectCurrentToken } from "../features/auth/authSlice";
 
 import { VITE_WS_BASE_URL } from "../../src/app/api/BaseURL";
 
-
-
-
 const Project = () => {
   const { t } = useTranslation();
   const [files, setFiles] = useState(null);
@@ -367,6 +364,7 @@ const Project = () => {
             <div
               style={{
                 display: "flex",
+                // marginBottom: "20px",
                 justifyContent: "center",
                 alignItems: "center",
                 height: "100%",
@@ -375,15 +373,53 @@ const Project = () => {
                 top: 0,
                 left: 0,
                 // backgroundColor: "rgba(0, 0, 0, 0.5)",
-                zIndex: 999,
                 borderRadius: "5px",
                 padding: "20px",
                 color: "#fff",
                 fontWeight: "bold",
                 fontSize: "20px",
                 textAlign: "center",
+                flexDirection: "column",
+                zIndex: 1000,
               }}
             >
+              <div
+                style={{
+                  margin: "20px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  maxWidth: "400px",
+                  padding: "10px 20px",
+                  backgroundColor: "#2C2C2C",
+                  borderRadius: "5px",
+                  opacity: "0.8",
+                  zIndex: 999, // Lower than the spinner to place it underneath
+                  cursor: "pointer",
+                  fontSize: "16px",
+                  // color: "#E0E0E0", // slightly lighter than white for contrast
+                  fontWeight: "500", // medium font weight for readability
+                  textAlign: "center",
+                  lineHeight: "1.5", // added line height for better readability
+                  maxWidth: "400px",
+
+                  boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
+                  cursor: "pointer", // added cursor for better readability
+                }}
+              >
+                <p
+                  style={{
+                    fontSize: "16px",
+                    color: "#fff",
+                    fontWeight: "600",
+                    textAlign: "center",
+                    lineHeight: "1.5",
+                  }}
+                >
+                  AI is reading right now, it takes some time
+                </p>
+              </div>
+
               <CircularProgress />
             </div>
           )}
